@@ -144,11 +144,11 @@ export default class ShoesStore extends Component {
     }
     changeProduct = (maSP, number) => {
         let newShoe;
-        if (maSP == 1 && number == -1) {
+        if (maSP === 1 && number === -1) {
             newShoe = this.arrShoes.find((sp) => {
                 return sp.id === this.arrShoes.length;
             })
-        } else if (maSP == this.arrShoes.length && number == 1) {
+        } else if (maSP === this.arrShoes.length && number === 1) {
             newShoe = this.arrShoes.find((sp) => {
                 return sp.id === 1;
             })
