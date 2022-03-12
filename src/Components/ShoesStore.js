@@ -53,7 +53,7 @@ export default class ShoesStore extends Component {
             "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.\r\n\r\n",
             "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.\r\n\r\n",
             "quantity": 674,
-            "image": "http://svcy3.myclass.vn/images/adidas-swift-run.png"
+            "image": "https://svcy3.myclass.vn/images/adidas-swift-run.png"
         },
         {
             "id": 6,
@@ -63,7 +63,7 @@ export default class ShoesStore extends Component {
             "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.\r\n\r\n",
             "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.\r\n\r\n",
             "quantity": 456,
-            "image": "http://svcy3.myclass.vn/images/adidas-tenisky-super-star.png"
+            "image": "https://svcy3.myclass.vn/images/adidas-tenisky-super-star.png"
         },
         {
             "id": 7,
