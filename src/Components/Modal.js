@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class Modal extends Component {
 
     render() {
-        let { content, changeProduct } = this.props;
+        let { content, changeProduct, addCart } = this.props;
         return (
             <div>
                 <div>
@@ -59,7 +59,10 @@ export default class Modal extends Component {
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-danger">Add to cart</button>
+                                    <button type="button" className="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#modalCart" onClick={
+                                        () => { addCart(content, content.id) }
+
+                                    }>Add to cart</button>
                                 </div>
                             </div>
                         </div>

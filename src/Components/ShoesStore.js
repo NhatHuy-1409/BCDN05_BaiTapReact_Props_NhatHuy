@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Cart from './Cart'
 import Modal from './Modal'
 import ProductList from './ProductList'
 
@@ -137,7 +138,8 @@ export default class ShoesStore extends Component {
             "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.\r\n\r\n",
             "quantity": 995,
             "image": "http://svcy3.myclass.vn/images/adidas-prophere.png"
-        }
+        },
+        cart: []
     }
     setStateModal = (newProduct) => {
         this.setState({ productDetail: newProduct })
@@ -158,12 +160,68 @@ export default class ShoesStore extends Component {
             })
         }
         this.setState({ productDetail: newShoe })
+    }
+    addCart = (shoe, id) => {
+        //Dùng push nó sẽ đẩy thẳng vào mảng CŨ luôn và return lại độ dài mảng đó
+        // this.state.cart.push(shoe)
+        // this.setState({
+        //     cart:this.state.cart 
+        // })
+        // console.log(this.state.cart);
+        let { cart } = this.state;
+        let newCart = []
 
+        let shoeFind = cart.find((shoe) => shoe.id === id);
+        if (shoeFind) {
+            //TÌm thấy ???
+            shoeFind.soLuong += 1;
+            newCart = [...cart]
+        } else {
+            //ko thấy
+            let newObjShoe = { ...shoe, soLuong: 1 }
+            newCart = [...cart, newObjShoe]
+        }
+        this.setState({ cart: newCart })
 
+    }
+    deleteShoe = (id) => {
+        let { cart } = this.state;
+        let newCart = cart.filter((shoe) => shoe.id !== id)
+        this.setState({ cart: newCart })
+
+    }
+    changeQuantity = (id, soLuong) => {
+        let { cart } = this.state;
+        let shoeFind = cart.find((shoe) => shoe.id === id);
+        if (shoeFind) {
+            shoeFind.soLuong += soLuong;
+            if (shoeFind.soLuong === 0) {
+                this.deleteShoe(id);
+                return
+            }
+        }
+        this.setState({ cart: cart })
+    }
+    sumCart = () => {
+        let { cart } = this.state;
+        let sum = cart.reduce((tong,shoe) => { 
+            return tong += shoe.soLuong
+         },0);
+        // cart.map((shoe) => {
+        //     return sum += shoe.soLuong
+        // })
+        return sum;
     }
     render() {
         return (
             <div className='container'>
+                <div className='d-flex align-items-center justify-content-between'>
+                    <h2 className='text-center my-4'>SHOES SHOP</h2>
+                    <div className='d-flex ' data-toggle="modal" data-target="#modalCart" style={{ cursor: "pointer" }}>
+                        <h2>Cart  <i className="fa fa-shopping-cart"></i></h2>
+                        <div style={{ fontSize: "20px" }} className="cart-value ">{this.sumCart()}</div>
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-2">
                         <ul className="list-group">
@@ -172,10 +230,11 @@ export default class ShoesStore extends Component {
                         </ul>
                     </div>
                     <div className="col-10">
-                        <ProductList productsData={this.arrShoes} setStateModal={this.setStateModal} />
+                        <ProductList productsData={this.arrShoes} setStateModal={this.setStateModal} addCart={this.addCart} />
                     </div>
                 </div>
-                <Modal changeProduct={this.changeProduct} content={this.state.productDetail} />
+                <Modal changeProduct={this.changeProduct} content={this.state.productDetail} addCart={this.addCart}/>
+                <Cart arrCart={this.state.cart} deleteShoe={this.deleteShoe} changeQuantity={this.changeQuantity} />
             </div>
         )
     }
